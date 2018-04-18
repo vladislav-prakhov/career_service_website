@@ -1,0 +1,56 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block title %}Авторизация Keystone{% endblock %}
+{% block content %}
+
+<h1 style="margin-bottom: 16px;">Вход</h1>
+     
+        <form>
+            <h6 style="margin-top: 40px;">Войти с помощью социальных сетей</h6>
+            <a class="btn btn-block btn-info" style="background-color: rgb(80, 114, 153);border-color: rgb(80, 114, 153) !important; margin-top: 0px;" href='/accounts/vk/login/?process=login'><i class="fa fa-vk"></i> Войти</a>
+            
+            <a class="btn btn-block btn-info" style="background-color: #3b5998;border-color: #3b5998 !important; margin-top: 16px;" href='/accounts/facebook/login/?process=login'><i class="fa fa-facebook"></i> Войти</a>
+
+        </form>            
+                    
+            <h6 style="margin-top: 32px;">Войти с помощью логина и пароля</h6>
+
+        <form method="POST" action="/accounts/login/">
+        {% csrf_token %}
+            
+            <div class="form-group" id="div_id_username">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="ti-email"></i></span>
+                    <input autofocus="autofocus" class="form-control" placeholder="Email" id="id_login" maxlength="254" name="login" type="email" required>
+                </div>
+            </div>
+              
+            <hr class="hr-xs">
+            <div class="form-group" id="div_id_password">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="ti-unlock"></i></span>
+                    <input type="password" class="form-control" placeholder="Пароль" id="id_password" name="password" type="password" required="">
+                </div>
+            </div>
+            
+            <div class="checkbox" style=" margin-left: 12px; margin-top: 30px;">
+            <p><input id="id_remember" name="remember" type="checkbox"><label for="id_remember">Запомнить меня</label></p>
+            </div>
+    			<input class='btn btn-primary btn-block' type="submit" value="{% trans 'Войти' %}" />
+    			<input type="hidden" name="next" value="{{ next }}" />
+    
+          </div>
+      </form>
+
+      <div class="login-links">
+        <a class="pull-left" href="{% url 'account_reset_password' %}">Забыли пароль?</a>
+        <a class="pull-right" href="{{ signup_url }}">{% trans "Зарегистрироваться" %}</a>
+      </div>
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+
+{% endblock %}

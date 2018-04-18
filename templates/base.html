@@ -1,0 +1,68 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Добро пожаловать на сайт сообщества Keystone. Keystone – крупнейшее некоммерческое студенческое сообщество в сфере финансов в Москве и в России на базе Высшей школы экономики">
+    <meta name="keywords" content="">
+
+    <title>Keystone</title>
+
+    <!-- Styles -->
+    <link href="{% static 'assets/vendors/lightslider-master/src/css/lightslider.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/summernote/summernote.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/thejobs.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
+
+    <link rel="icon" href="{% static 'assets/img/cropped-favicon1-32x32.png' %}" sizes="32x32" />
+    <link rel="icon" href="{% static 'assets/img/cropped-favicon1-192x192.png' %}" sizes="192x192" />
+    <link rel="apple-touch-icon-precomposed" href="{% static 'assets/img/cropped-favicon1-180x180.png' %}">
+    <meta name="msapplication-TileImage" content="{% static 'assets/img/cropped-favicon1-270x270.png' %}">
+
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Favicons -->
+  </head>
+
+  <body class="nav-on-header smart-nav">
+	{% include 'yandex_metrika_main.html' %}
+    {% include 'navbar.html' %}
+    <!-- Page header -->
+    <header class="site-header size-lg text-center" style="background-image: url({% block imageheader %}{% endblock %}); background-position: 45% top; background-attachment: fixed; background-repeat: no-repeat; height: 100%; background-size: cover; -webkit-background-size: cover; background-position-y: 0%; background-position-x: 45%; width: 100%; background-attachment: scroll; ">
+        <div class="container">
+          {% block header %}
+          {% endblock %}
+        </div>
+    </header>
+    <!-- END Page header -->
+
+
+    <!-- Main container -->
+    {% block content %}
+
+    {% endblock %}
+    <!-- END Main container -->
+
+
+    <!-- Site footer -->
+    {% include 'footer.html' %}
+
+
+    <!-- Back to top button -->
+    <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+    <!-- END Back to top button -->
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.min.js' %}"</script>
+    <script src="{% static 'assets/vendors/summernote/summernote.min.js' %}"></script>
+    <script src="{% static 'assets/js/thejobs.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+  </body>
+</html>

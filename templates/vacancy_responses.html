@@ -1,0 +1,75 @@
+{% extends "base_page.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% if request.user.is_authenticated %}
+
+
+    {% block header %}
+    		<div class="header-detail">
+              <img class="logo" style="margin-top: 20px;" src={{vacancy.company.logo.url}} alt="">
+              <div class="hgroup">
+                <h1>{{ vacancy.title}}</h1>
+                <h3><a href="#">{{ vacancy.company}}</a></h3>
+              </div>
+              <time datetime="2016-03-03 20:00"></time>
+              <p class="lead"></p>
+              <ul class="details cols-3">
+                <li>
+                  <i class="fa fa-map-marker"></i>
+                  <span> {{ vacancy.office_city}}, {{ vacancy.office_country}}</span>
+                </li>
+              </ul>
+            </div>
+    {% endblock %}
+
+{% block content %}
+
+<main>
+
+  <!-- Job detail -->
+  <section style="padding-top: 0px; background-color: #fafafa;">
+    <div class="container">
+    <h5 style="margin-top: 0px">Список кандидатов</h5>
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Пользователи Keystone, которые откликнулись на вакансию</div>
+    
+      <!-- Table -->
+      <table class="table">
+          <thead>
+          <tr>
+              <th>Дата отклика</th>
+              <th>Имя</th>
+              <th>Фамилия</th>
+              <th>CV</th>
+              <th>CL</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for obj in responses %}
+          <tr>
+              <td> {{ obj.time_uploaded }} </td>
+              <td>{{ obj.user.custom_user.name }}</td>
+              <td>{{ obj.user.custom_user.surname }}</td>
+              <td>{{ obj.cv_upload }}</td>
+              <td>{{ obj.cover_letter }}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+    </div>
+    <br>
+    <h5>Описание</h5>
+    <p>{{ vacancy.description|safe }}</p>
+    </div>
+  </section>
+  <!-- END Job detail -->
+</main>
+
+{% endblock %}
+
+{% else %}
+<p class='lead'>Упс, вы должны войти в личный кабинет, прежде чем увидеть эту страницу</p>
+{% endif %}

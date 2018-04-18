@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load staticfiles%}
+
+
+{% block head_title %}Welcome{% endblock %}
+
+<style>
+{% block style %}
+
+{% endblock %}
+</style>
+
+{% block imageheader %}{% static 'img/Themes/2.jpg' %}{% endblock %}
+
+{% block header %}
+	<div class="col-xs-12">
+	  <br><br>
+	    <h2 style="font-family: Arial">Зарегистрируйтесь на мероприятие прямо сейчас!</h2>
+	    <!-- <h5 class="font-alt">Найдите лучшие карьерные возможности здесь</h5> -->
+	    <br><br><br>
+	</div>
+{% endblock %}
+
+{% block content %}
+
+<main>
+	<section class="no-padding-top bg-alt">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-xs-12">
+				</div>
+
+{% for obj in object_list %}
+			<div class="col-xs-12">
+				<a class="item-block" href={% url "event_article" id=obj.id %}>
+					<header>
+						<div class="hgroup">
+							<h4>{{ obj.title }}</h4>
+						</div>
+						<time datetime="2016-03-10 20:00"></time>
+					</header>
+
+					<div class="item-body">
+						<p>{{obj.description|truncatewords_html:50}}</div>
+
+					<footer>
+						<ul class="details cols-3">
+							<li>
+							    <i class="fa fa-map-marker"></i>
+								<span> {{ obj.adress }}</span>
+							</li>
+							
+														<li>
+								<i class="fa fa-money"></i>
+								<span> Бесплатно</span>
+							</li>
+														<li>
+								<i class="fa fa-clock-o"></i>
+								<span>{{ obj.date }}</span> 
+							</li>
+
+						</ul>
+					</footer>
+				</a>
+			</div>
+
+{% endfor %}
+
+        </div>
+
+
+	        <!-- Page navigation -->
+			<div class="row text-center">
+				<div class="large-3 large-offset-5 columns">
+					<ul class="pagination">
+					{% if object_list.has_previous %}
+						<li class="arrow"><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
+					{% else %}
+						<li class="arrow unavailable"><a href="">&laquo;</a></li>
+					{% endif %}
+					{% for page in object_list.paginator.page_range %}
+					{% if page == object_list.number %}
+						<li class="current"><a href="/events/?page={{ page }}">{{ page }}</a></li>
+					{% else %}
+					<li><a href="/events/?page={{ page }}">{{ page }}</a></li>
+					{% endif %}
+		  			{% endfor %}
+					{% if object_list.has_next %}
+						<li class="arrow"><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+					{% else %}
+						<li class="arrow unavailable"><a href="">&raquo;</a></li>
+					{% endif %}
+					</ul>
+				</div>
+			</div>
+	        <!-- END Page navigation -->
+
+		</div>
+	</section>
+</main>
+
+{% endblock %}

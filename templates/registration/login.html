@@ -1,0 +1,84 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Post a job position or create your online resume by TheJobs!">
+    <meta name="keywords" content="">
+    <title>Авторизация Keystone</title>
+    <!-- Styles -->
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/summernote/summernote.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/thejobs.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
+
+    <link rel="icon" href="{% static 'assets/img/cropped-favicon1-32x32.png' %}" sizes="32x32" />
+    <link rel="icon" href="{% static 'assets/img/cropped-favicon1-192x192.png' %}" sizes="192x192" />
+    <link rel="apple-touch-icon-precomposed" href="{% static 'assets/img/cropped-favicon1-180x180.png' %}">
+    <meta name="msapplication-TileImage" content="{% static 'assets/img/cropped-favicon1-270x270.png' %}">
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- Favicons -->
+  </head>
+
+  <body class="login-page">
+    <main>
+
+      <div class="login-block">
+        <img src="{% static 'img/logo_blue_empty.png' %}"  alt="" style="max-height: 60px;">
+        <h1 style="margin-bottom: 16px;">Вход</h1>
+                    
+        		<form>
+            <h6 style="margin-top: 40px;">Войти с помощью социальных сетей</h6>
+            <a class="btn btn-block btn-info" style="background-color: rgb(80, 114, 153);border-color: rgb(80, 114, 153) !important; margin-top: 0px;" href='/social/vk/login/?process=login'><i class="fa fa-vk"></i> Войти</a>
+            
+            <a class="btn btn-block btn-info" style="background-color: #3b5998;border-color: #3b5998 !important; margin-top: 16px;" href='/social/facebook/login/?process=login'><i class="fa fa-facebook"></i> Войти</a>
+
+        </form>            
+                    
+            <h6 style="margin-top: 32px;">Войти с помощью логина и пароля</h6>
+        
+			<form method="post" action=".">
+			{% csrf_token %}
+			          
+        <div class="form-group" id="div_id_username">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="ti-email"></i></span>
+                <input autofocus="" class="form-control" placeholder="Email" id="id_username" maxlength="254" name="username" type="text" required="">
+            </div>
+        </div>
+          
+        <hr class="hr-xs">
+        <div class="form-group" id="div_id_password">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="ti-unlock"></i></span>
+                <input type="password" class="form-control" placeholder="Пароль" id="id_password" name="password" type="password" required="">
+            </div>
+        </div>
+                
+                
+			
+			<input class='btn btn-primary btn-block' type="submit" value="{% trans 'Войти' %}" />
+			<input type="hidden" name="next" value="{{ next }}" />
+
+      </div>
+
+      <div class="login-links">
+        <a class="pull-left" href="user-forget-pass.html">Забыли пароль?</a>
+        <a class="pull-right" href="{% url 'registration_register' %}">{% trans "Зарегистрироваться" %}</a>
+      </div>
+
+    </main>
+
+
+    <!-- Scripts -->
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+  </body>
+</html>

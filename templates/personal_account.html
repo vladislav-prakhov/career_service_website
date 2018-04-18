@@ -1,0 +1,102 @@
+{% extends "base_page.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block name %}
+{% endblock %}
+
+
+{% block header %}
+	{% if request.user.is_authenticated %}
+	
+	{% if u.user_class == "E" %}
+    <h1 class="text-center">Личный кабинет</h1>
+    <p class="lead text-center">Покажите ваш уникальный бэкграунд лучшим компаниям!</p> 
+    {% endif %}
+    
+    {% if u.user_class == "C" %}
+    <h1 class="text-center">Личный кабинет компании {{ company_name }}</h1>
+    <p class="lead text-center">Найдите лучших кандидатов из top-tier вузов!</p>  
+	{% endif %}
+	
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+	{% if request.user.is_authenticated %}
+	
+			{% if u.user_class == "E" %}
+			<form action='' method='POST' accept-charset="utf-8" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form|crispy }}
+			{{ title }}
+			<p style="text-align: center">
+			<input type='submit' class="btn btn-round btn-primary" value='Подтвердить изменения' name="CustomUser">
+			</input>
+			</p>
+			</forms>
+			{% endif %}
+
+			{% if u.user_class == "C" %}
+			
+			<header class="section-header">
+              <h2>Управление вакансиями</h2>
+            </header>
+
+			{% for obj in object_list %}
+			<div class="row item-blocks-connected">
+
+
+            <!-- Job item -->
+            <div class="col-xs-12">
+              <a class="item-block" href={% url "vacancy_responses" id=obj.id %}>
+                <header>
+                  <img style="margin-top: 10px;" src={{obj.company.logo.url}} alt="">
+                  <div class="hgroup">
+                    <h4>{{ obj.title }}</h4>
+                    <h5>{{ obj.company }}</h5>
+                  </div>
+                  <div class="header-meta">
+                    {% if obj.aproved %}
+                    <span class="label label-success">Одобрена</span>
+                    {% else %}
+                    <span class="label label-warning">На модерации</span>
+                    {% endif %}
+                  </div>
+                </header>
+              </a>
+            </div>
+            <!-- END Job item -->
+          </div>
+          {% endfor %}
+			
+			<br><br>
+			
+            <header class="section-header">
+              <h2>Создать новую вакансию</h2>
+              <p>Для этого заполните поля и дождитесь одобрения модератора сайта</p>
+            </header>
+			<form action='' method='POST' accept-charset="utf-8" enctype="multipart/form-data">
+    			{% csrf_token %}
+
+			<!-- /admin/auth/user/{{ user_ID }}/ -->
+			{{ form3 }}
+			{{ title }}
+
+			
+            <p style="text-align: center">
+			<input type='submit' class="btn btn-round btn-primary" value='Создать вакансию' name="CustomCompanyUser">	
+			</input>
+			</p>
+			</forms>
+			{% endif %}
+
+	{% else %}
+	<p class='lead'>Упс, вы должны войти в личный кабинет, прежде чем увидеть эту страницу</p>
+	{% endif %}
+<br>
+</div>
+{% endblock %}

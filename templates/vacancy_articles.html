@@ -1,0 +1,232 @@
+{% extends "base_page.html" %}
+{% load staticfiles%}
+
+{% block head_title %}Welcome{% endblock %}
+
+<style>
+{% block style %}
+
+{% endblock %}
+</style>
+
+{% block imageheader %}{% static 'img/Themes/3.jpg' %}{% endblock %}
+
+{% block name %}
+	    <h2 style="font-family: Arial; text-align: center;">Сделайте первый шаг к работе мечты. Это просто!</h2>
+	    <!-- <h5 class="font-alt">Найдите лучшие карьерные возможности здесь</h5> -->
+{% endblock %}
+
+{% block header %}
+<form action="{%url 'vacancy_articles' %}" method="post">
+        {% csrf_token %}
+
+          <div class="row">
+
+            <div class="form-group col-xs-12 col-sm-4">
+              <h6>Тип занятости</h6>
+              <div class="checkall-group">
+                <div class="checkbox">
+                  <input type="checkbox" id="contract1" name="contract1" value="Yes" {% if contract1 %} checked {% else %} {% endif %}>
+                  <label for="contract1">Все типы</label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="contract2" name="contract2" value="Yes" {% if contract2 %} checked {% else %} {% endif %}>
+                  <label for="contract2">Full-time Position</label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="contract3" name="contract3" value="Yes" {% if contract3 %} checked {% else %} {% endif %}>
+                  <label for="contract3">Part-time Position</label>
+                </div>
+                
+                <div class="checkbox">
+                  <input type="checkbox" id="contract5" name="contract5" value="Yes" {% if contract5 %} checked {% else %} {% endif %}>
+                  <label for="contract5">Paid Internship </label>
+                </div>
+                
+                <div class="checkbox">
+                  <input type="checkbox" id="contract4" name="contract4" value="Yes" {% if contract4 %} checked {% else %} {% endif %}>
+                  <label for="contract4">Unpaid Internship </label>
+                </div>
+                 
+                
+              </div>
+            </div>
+
+
+            <div class="form-group col-xs-12 col-sm-4">
+              <h6>Индустрия</h6>
+              <div class="checkall-group">
+                <div class="checkbox">
+                  <input type="checkbox" id="rate1" name="rate1" value="Yes" {% if rate1 %} checked {% else %} {% endif %}>
+                  <label for="rate1">Все индустрии</label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="rate2" name="rate2" value="Yes"  {% if rate2 %} checked {% else %} {% endif %}>
+                  <label for="rate2">IB </label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="rate3" name="rate3" value="Yes"  {% if rate3 %} checked {% else %} {% endif %}>
+                  <label for="rate3">Commercial Banking </label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="rate4" name="rate4" value="Yes"  {% if rate4 %} checked {% else %} {% endif %}>
+                  <label for="rate4">Venture Capital </label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="rate5" name="rate5" value="Yes"  {% if rate5 %} checked {% else %} {% endif %}>
+                  <label for="rate5">Industry </label>
+                </div>
+                
+                <div class="checkbox">
+                  <input type="checkbox" id="rate6" name="rate6" value="Yes"  {% if rate6 %} checked {% else %} {% endif %}>
+                  <label for="rate6">Другие </label>
+                </div>
+                
+              </div>
+            </div>
+
+
+            <div class="form-group col-xs-12 col-sm-4">
+              <h6>Город</h6>
+              <div class="checkall-group">
+                <div class="checkbox">
+                  <input type="checkbox" id="city1" name="city1" value="Yes" {% if city1 %} checked {% else %} {% endif %}>
+                  <label for="city1">Все города</label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="city2" name="city2" value="Yes" {% if city2 %} checked {% else %} {% endif %}>
+                  <label for="city2">Москва </label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="city3" name="city3" value="Yes" {% if city3 %} checked {% else %} {% endif %}>
+                  <label for="city3">Санкт-Петербург </label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="city4" name="city4" value="Yes" {% if city4 %} checked {% else %} {% endif %}>
+                  <label for="city4">Лондон </label>
+                </div>
+
+                <div class="checkbox">
+                  <input type="checkbox" id="city5" name="city5" value="Yes" {% if city5 %} checked {% else %} {% endif %}>
+                  <label for="city5">Нью Йорк </label>
+                </div>
+                
+                <div class="checkbox">
+                  <input type="checkbox" id="city6" name="city6" value="Yes" {% if city6 %} checked {% else %} {% endif %}>
+                  <label for="city6">Другие города </label>
+                </div>
+                
+              </div>
+            </div>
+
+          </div>
+
+          <div class="button-group">
+            <div class="action-buttons">
+              <button class="btn btn-primary">Применить фильтр</button>
+            </div>
+          </div>
+
+</form>
+
+{% endblock %}
+
+{% block content %}
+
+<main>
+	<section class="no-padding-top bg-alt">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-xs-12">
+				</div>
+
+{% for obj in object_list %}
+			<div class="col-xs-12">
+				<a class="item-block" href={% url "vacancy_article" id=obj.id %}>
+					<header>
+						<img style="margin-top: 10px;" src= {{obj.company.logo.url}} alt="">
+						<div class="hgroup">
+							<h4>{{ obj.title }}</h4>
+							<h5>{{ obj.company }} 
+					{% if obj.employment_rate == 'F' %}<span class="label label-success">Full-time Position</span>{% endif %}
+					{% if obj.employment_rate == 'P' %}<span class="label label-warning">Part-time Position</span>{% endif %}
+					{% if obj.employment_rate == 'I' %}<span class="label label-danger">Paid Internship</span>{% endif %}
+					{% if obj.employment_rate == 'U' %}<span class="label label-info">Unpaid Internship</span>{% endif %}
+							</h5>
+						</div>
+						<time datetime="2016-03-10 20:00"></time>
+					</header>
+
+					<div class="item-body">
+						{{obj.description|striptags|safe|truncatewords_html:15 }}
+					</div>
+
+					<footer>
+						<ul class="details cols-3">
+                            <li>
+                              <i class="fa fa-map-marker"></i>
+                              <span>{{ obj.office_city}}</span>
+                            </li>
+                            <li>
+                               <i class="fa fa-briefcase"></i>
+                                {% if obj.employment_rate == 'F' %}<span>Full-time Position</span>{% endif %}
+                                {% if obj.employment_rate == 'P' %}<span>Part-time Position</span>{% endif %}
+                                {% if obj.employment_rate == 'I' %}<span>Paid Internship</span>{% endif %}
+                                {% if obj.employment_rate == 'U' %}<span>Unpaid Internship</span>{% endif %}
+                              </li>
+                            <li>
+                               <i class="fa fa-building"></i>
+                               <span>{{ obj.field_of_industry}} </span>
+                            </li>
+
+						</ul>
+					</footer>
+				</a>
+			</div>
+
+{% endfor %}
+
+        </div>
+
+
+	        <!-- Page navigation -->
+			<div class="row text-center">
+				<div class="large-3 large-offset-5 columns">
+					<ul class="pagination">
+						{% if object_list.has_previous %}
+							<li class="arrow"><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
+						{% else %}
+							<li class="arrow unavailable"><a href="">&laquo;</a></li>
+						{% endif %}
+						{% for page in object_list.paginator.page_range %}
+							{% if page == object_list.number %}
+								<li class="current"><a href="/vacancies/?page={{ page }}">{{ page }}</a></li>
+							{% else %}
+								<li><a href="/vacancies/?page={{ page }}">{{ page }}</a></li>
+							{% endif %}
+					    {% endfor %}
+						{% if object_list.has_next %}
+							<li class="arrow"><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+							{% else %}
+								<li class="arrow unavailable"><a href="">&raquo;</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+	        <!-- END Page navigation -->
+
+		</div>
+	</section>
+</main>
+
+{% endblock %}

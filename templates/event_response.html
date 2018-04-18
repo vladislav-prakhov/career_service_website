@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content %}
+<h1>{{ instance.eventclass_id}} </h1>
+<h2>{{ instance.title}}</h2>
+
+<div class="row">
+	<div class="col-sm-6 col-md-6">
+		<div class="caption">
+			<p>
+			Адрес: {{ instance.adress}}<br/>
+			Дата: {{ instance.date}}<br/>
+			Описание: {{ instance.description }}</br>
+			</p>
+		</div>
+	</div>
+	<div class="col-sm-6 col-md-6">
+		<form action="" method="POST" accept-charset="utf-8">{% csrf_token %}
+		<!-- /admin/auth/user/{{ user_ID }}/ -->
+			{% if request.user.is_authenticated %}
+				<p class='lead'>Пожалуйста, проверьте ваши данные на корректность</p>
+			{% else %}
+				<p class='lead'>Пожалуйста, введите ваши данные</p>
+			{% endif %}
+			{{ form2|crispy}}
+			{{ title }}
+			<input type='submit' value='Зарегистрироваться на мероприятие' name="Employee" />
+			<!-- <h1>Choose company for vacancy</h1>
+			{{ form2|crispy }} -->
+
+		</forms>
+	</div>
+</div>
+{% endblock %}

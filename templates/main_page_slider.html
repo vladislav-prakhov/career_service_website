@@ -1,0 +1,88 @@
+{% load staticfiles%}
+<head>
+<link href="{% static 'assets/vendors/lightslider-master/src/css/lightslider.css' %}" rel="stylesheet">
+    <style>
+    	ul{
+			list-style: none outside none;
+		    padding-left: 0;
+            margin: 0;
+		}
+        .demo .item{
+            margin-bottom: 60px;
+        }
+		.content-slider li{
+		    background-color: #FFFFFF;
+		    text-align: center;
+		    color: #FFF;
+		}
+		.content-slider h3 {
+		    margin: 0;
+		    padding: 70px 0;
+		}
+		.demo{
+			width: 800px;
+		}
+    </style>
+    <script src="{% static 'assets/js/app.min.js' %}"</script>
+    <script src="{% static 'assets/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/lightslider-master/src/js/lightslider.js' %}"></script> 
+    <script>
+    	 $(document).ready(function() {
+			$("#content-slider").lightSlider({
+                loop:true,
+                keyPress:true
+            });
+            $('#image-gallery').lightSlider({
+                gallery:true,
+                item:1,
+                thumbItem:9,
+                slideMargin: 0,
+                speed:500,
+                auto:true,
+                loop:true,
+                onSliderLoad: function() {
+                    $('#image-gallery').removeClass('cS-hidden');
+                }  
+            });
+		});
+    </script>
+</head>
+<body>
+	<div class="demo">
+        <div class="item">
+            <ul id="content-slider" class="content-slider">
+                <li>
+                    <p style="text-align: center;">
+                  <img src="/static/logo/citi.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px;">
+              </p>
+                </li>
+                <li>
+                    <p style="text-align: center">
+                  <img src="/static/logo/nordea.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px">
+              </p>
+                </li>
+                <li>
+                    <p style="text-align: center">
+                  <img src="/static/logo/uber.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px">
+              </p>
+                </li>
+                <li>
+                    <p style="text-align: center">
+                  <img src="/static/logo/sber_cib.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px">
+              </p>
+                </li>
+                <li>
+                    <p style="text-align: center">
+                  <img src="/static/logo/vtb_cap.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px">
+              </p>
+                </li>
+                <li>
+                    <p style="text-align: center">
+                  <img src="/static/logo/ren_cap.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px">
+              </p>
+                </li>
+            </ul>
+        </div>
+
+    </div>	
+</body>

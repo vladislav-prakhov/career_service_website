@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block head_title %}Welcome{% endblock %}
+
+<style>
+{% block style %}
+
+{% endblock %}
+</style>
+
+{% block imageheader %}{% static 'img/Themes/1.jpg' %}{% endblock %}
+
+{% block header %}
+	<div class="col-xs-12">
+	  <br><br>
+	    <h2 style="font-family: Arial">Начните карьеру в финансах вместе с Keystone!</h2>
+	    <h5 class="font-alt">Найдите лучшие карьерные возможности здесь</h5>
+	    <br><br><br>
+	    {% if request.user.is_authenticated %}
+	    <br><br><br>
+
+	    {% else %} 
+        <p  class="text-center">    
+          <div class="home-signup inline">
+              <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3">
+                  <a href=" {% url 'why' %} " class="btn btn-primary btn-outline" style="margin-bottom: 10px; width: 250px; text-align:center; padding-right:0px; padding-left:0px;">
+                      Для компаний и экспертов
+                  </a>
+                  <!-- <br> --> 
+                </div>
+                <div class="col-lg-3">
+                  <a href="/accounts/signup/" class="btn btn-primary" style=" width: 250px;">
+                      
+  Создать аккаунт
+                  </a>
+                    <div class="home-signup">
+                      <a class="user-login" style="font-size: 11px; text-align:center" href="/accounts/login/">
+                        ВОЙТИ В СУЩЕСТВУЮЩИЙ
+                      </a>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                </div>
+              </div>
+          </div>
+        </p>
+        {% endif %}
+
+	</div>
+{% endblock %}
+	{% block content %}
+<section>
+        <div class="container">
+          <header class="section-header">
+            <h2>Недавние вакансии</h2>
+          </header>
+
+          <div class="row item-blocks-connected">
+{% for obj in object_list %}
+
+            <!-- Job item -->
+            <div class="col-xs-12">
+              <a class="item-block" href={% url "vacancy_article" id=obj.id %}>
+                <header>
+                  <img style="margin-top: 10px;" src={{obj.company.logo.url}} alt="">
+                  <div class="hgroup">
+                    <h4>{{ obj.title }}</h4>
+                    <h5>{{ obj.company }}</h5>
+                  </div>
+                  <div class="header-meta">
+                    <span class="location">{{obj.office_city}}</span>
+					{% if obj.employment_rate == 'F' %}<span class="label label-success">Full-time Position</span>{% endif %}
+					{% if obj.employment_rate == 'P' %}<span class="label label-warning">Part-time Position</span>{% endif %}
+					{% if obj.employment_rate == 'I' %}<span class="label label-danger">Paid Internship</span>{% endif %}
+					{% if obj.employment_rate == 'U' %}<span class="label label-info">Unpaid Internship</span>{% endif %}
+                  </div>
+                </header>
+              </a>
+            </div>
+            <!-- END Job item -->
+{% endfor %}
+
+          </div>
+          <br><br>
+          <p class="text-center"><a class="btn btn-info" href="{% url 'vacancy_articles'%}">Посмотреть все вакансии</a></p>
+        </div>
+      </section>
+
+<section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url({% static 'assets/img/bg-pattern.png' %})">
+    <div class="container">
+        <div class="row">
+            
+            <div class="counter col-md-4 col-sm-6">
+              <p><span data-from="0" data-to="6890" class="counted-before">150</span>+</p>
+              <h6>Мероприятий</h6>
+            </div>
+
+            <div class="counter col-md-4 col-sm-6">
+              <p><span data-from="0" data-to="1200" class="counted-before">8500</span>+</p>
+              <h6>Участников</h6>
+            </div>
+
+            <div class="counter col-md-4 col-sm-6">
+              <p><span data-from="0" data-to="36800" class="counted-before">100</span>+</p>
+              <h6>Вакансий</h6>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!--
+      <section>
+        <div class="container">
+          <header class="section-header">
+            <h2>Наши партнеры</h2>
+          </header>
+
+          <div class="row" style="line-height: 60px;">
+	          <div class="col-md-2">
+		          <p style="text-align: center">
+		          <img src="/static/logo/citi.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px; max-width: 250px; margin-top: 20px;">
+	          </p></div>
+	          <div class="col-md-2">
+		          <p style="text-align: center">
+		          <img src="/static/logo/nordea.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px; max-width: 250px; margin-top: 20px;">
+	          </p></div>
+	          	<div class="col-md-2">
+		          <p style="text-align: center">
+		          <img src="/static/logo/uber.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px; max-width: 250px; margin-top: 20px;">
+	          </p></div>
+	          <div class="col-md-2">
+		          <p style="text-align: center">
+		          <img src="/static/logo/sber_cib.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px; max-width: 250px; margin-top: 20px;">
+	          </p></div>
+	          	<div class="col-md-2">
+		          <p style="text-align: center">
+		          <img src="/static/logo/vtb_cap.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px; max-width: 250px; margin-top: 20px;">
+	          </p></div>
+	          	 <div class="col-md-2">
+		          <p style="text-align: center">
+		          <img src="/static/logo/ren_cap.png" style="padding-right: 30px; padding-left: 30px; max-height: 50px; max-width: 250px; margin-top: 20px;">
+	          </p></div>
+	          
+          </div>
+        </div>
+      </section>
+-->
+	{% endblock %}
+			<!--<h2>ABC is = {{abc}}</h2>example for context--> 

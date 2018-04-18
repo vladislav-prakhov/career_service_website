@@ -1,0 +1,55 @@
+{% extends "base_page.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+{% block header %}
+      <h1 class="text-center">Команда Keystone</h1>
+{% endblock %}
+
+
+{% block content %}
+    <!-- Main container -->
+    <main>
+        <selection class="bg-alt">
+            <div class="container">
+                <div class="row equal-team-members">
+                    
+{% for obj in object_list %}
+                          <!-- Team member -->
+                          <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="team-member">
+                              <h5>{{ obj.name }} {{ obj.surname }} <p>{{ obj.role }} </p></h5>
+                                {% if obj.photo %}
+                              <img src="{{ obj.photo.url }}" style="max-height: 128px;" alt="avatar">
+                                {% else %}
+                              <img src="{% static 'img/user.png' %}" style="max-height: 128px;" alt="avatar">
+                              {% endif %}
+                              <ul class="social-icons">
+                                {% if obj.vk %}
+                                <li><a class="vk" href="{{ obj.vk }}"><i class="fa fa-vk"></i></a></li>
+                                {% endif %}
+                                {% if obj.facebook %}
+                                <li><a class="facebook" href="{{ obj.facebook }}"><i class="fa fa-facebook"></i></a></li>
+                                {% endif %}
+                                {% if obj.linkedin %}
+                                <li><a class="linkedin" href="{{ obj.linkedin }}"><i class="fa fa-linkedin"></i></a></li>
+                                {% endif %}
+                                {% if obj.instagram %}
+                                <li><a class="instagram" href="{{ obj.instagram }}"><i class="fa fa-instagram"></i></a></li>
+                                {% endif %}
+                              </ul>
+                            </div>
+                          </div>
+                          <!-- END Team member -->
+{% endfor %}
+
+              </div>
+            </div>  
+        </selection>
+
+    </main>
+
+
+{% endblock %}

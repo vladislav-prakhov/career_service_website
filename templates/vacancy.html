@@ -1,0 +1,107 @@
+{% extends "base_page.html" %}
+{% load staticfiles%}
+
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block head_title %}Welcome{% endblock %}
+
+<style>
+{% block style %}
+
+{% endblock %}
+</style>
+
+{% block imageheader %}{% static 'img/Themes/3.jpg' %}{% endblock %}
+
+{% block header %}
+		<div class="header-detail">
+          <img class="logo" style="margin-top: 20px;" src={{instance.company.logo.url}} alt="">
+          <div class="hgroup">
+            <h1>{{ instance.title}}</h1>
+            <h3><a href="#">{{ instance.company}}</a></h3>
+          </div>
+          <time datetime="2016-03-03 20:00"></time>
+
+          <p class="lead"></p>
+
+          <ul class="details cols-3">
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <span>{{ instance.office_city}}, {{ instance.office_country}}</span>
+            </li>
+            <li>
+               <i class="fa fa-briefcase"></i>
+                {% if instance.employment_rate == 'F' %}<span>Full-time Position</span>{% endif %}
+                {% if instance.employment_rate == 'P' %}<span>Part-time Position</span>{% endif %}
+                {% if instance.employment_rate == 'I' %}<span>Paid Internship</span>{% endif %}
+                {% if instance.employment_rate == 'U' %}<span>Unpaid Internship</span>{% endif %}
+              </li>
+            <li>
+               <i class="fa fa-building"></i>
+               <span>{{ instance.field_of_industry}} </span>
+              </li>
+          </ul>
+            <div class="button-group">
+                    <ul class="social-icons">
+                      <li class="title">Поделиться</li> <br>
+                      <li><a class="facebook" href="http://www.facebook.com/sharer.php?u={{ request.build_absolute_uri|urlencode }}"><i class="fa fa-facebook"></i></a></li>
+                      <li><a class="vk" href="http://vk.com/share.php?url={{ request.build_absolute_uri|urlencode }} "><i class="fa fa-vk"></i></a></li>
+                      <li><a class="linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+         
+              {% if instance.site_apply %}
+                    {% if request.user.is_authenticated %}
+                            {% if u.user_class == "E" %}
+                                    {% if applied %}
+                                    <ul class="social-icons" style="float: right;">
+                        			  	<li class="title" style="margin-right: 0px; line-height: 81px;">Вы уже откликнулись на данную вакансию</li>
+                                    </ul>   
+                                    {% else %}
+                                    <a class="btn btn-primary" href="{%url 'response' id=instance.id %}">Откликнуться на вакансию</a>
+                                  	{% endif %}
+                          	{% endif %}
+                      	
+                  	{% else %}
+                  	<div class="action-buttons" >
+                        <ul class="social-icons">
+                          	<li class="title" style="margin-right: 0px">Чтобы откликнуться на вакансию, вам нужно войти в учетную запись</li>
+                        </ul>
+                        <br>
+                        <div style="float: right">              		
+                    		<a class="btn btn-primary btn-outline" href="/accounts/signup/">Зарегистрироваться</a>
+                    		<a class="btn btn-success" href="/accounts/login/">Войти в учетную запись</a>
+                        </div>
+                    </div>
+    		        {% endif %}
+              {% else %}
+                    <div class="action-buttons" >
+                        <ul class="social-icons" style="line-height: 81px;">
+                          	<li class="title" style="margin-right: 0px; line-height: 300%;">Отклик на данную вакансию недоступен через сайт</li>
+                        </ul>
+                    </div>           
+               {% endif %}
+            </div>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    <!-- Main container -->
+    <main>
+
+      <!-- Job detail -->
+      <section style="padding-top: 0px; background-color: #fafafa;">
+        <div class="container">
+
+          <p>{{ instance.description|safe }}</p>
+
+        </div>
+      </section>
+      <!-- END Job detail -->
+
+    </main>
+
+{% endblock %}

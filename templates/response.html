@@ -1,0 +1,90 @@
+{% extends "base_page.html" %}
+{% load staticfiles%}
+
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block head_title %}Welcome{% endblock %}
+
+<style>
+{% block style %}
+
+{% endblock %}
+</style>
+
+{% block imageheader %}{% static 'img/Themes/3.jpg' %}{% endblock %}
+
+{% block header %}
+		<div class="header-detail">
+          <img class="logo" style="margin-top: 20px;" src={{instance.company.logo.url}} alt="">
+          <div class="hgroup">
+            <h1>{{ instance.title}}</h1>
+            <h3><a href="#">{{ instance.company}}</a></h3>
+          </div>
+          <time datetime="2016-03-03 20:00"></time>
+          <p class="lead"></p>
+
+          <ul class="details cols-3">
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <span> {{ instance.office_city}}, {{ instance.office_country}}</span>
+            </li>
+          </ul>
+
+          <div class="button-group">
+            <ul class="social-icons">
+              <li class="title">Поделиться</li>
+              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+
+        </div>
+
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+    <!-- Main container -->
+    <main>
+
+      <!-- Job detail -->
+      <section style="padding-top: 0px; background-color: #fafafa;">
+        <div class="container">
+
+          <h5>Проверьте, пожалуйста, ваше CV в личном кабинете прежде чем откликаться на вакансию!</h5>
+          		<form action='{%url 'response' id=instance.id %}' method='POST' enctype='multipart/form-data'>
+        {% csrf_token %}
+        {% if instance.cl_reqired %}
+		{{ form|crispy }}
+		{% else %}
+		{% endif %}
+		
+		<p style="text-align: center">
+        <input type="hidden" name="date" id="date" value = "Yes">
+		<input type='submit' class="btn btn-round btn-success" value='Откликнуться' />
+		</p>  
+          
+        </div>
+      </section>
+      <!-- END Job detail -->
+
+    </main>
+{% else %}
+    <!-- Main container -->
+    <main>
+
+      <!-- Job detail -->
+      <section style="padding-top: 0px">
+        <div class="container">
+          <p>Упс, вы должны войти в личный кабинет, прежде чем увидеть эту страницу</p>
+          
+        </div>
+      </section>
+      <!-- END Job detail -->
+
+    </main>
+{% endif %}
+{% endblock %}

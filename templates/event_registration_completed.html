@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<p class='lead'>{% trans "Вы успешно зарегистрировались на мероприятие" %} {{ instance.title}}</p>
+<p>Перейдите по <a href="{% url 'event_articles' %}">ссылке</a>, чтобы просмотреть другие мероприятия</p>
+{% endblock %}

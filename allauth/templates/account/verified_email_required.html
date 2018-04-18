@@ -1,0 +1,19 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block title %}Потвердите ваш email{% endblock %}
+
+{% block content %}
+<h1>Подтвердите ваш email</h1>
+
+{% url 'account_email' as email_url %}
+
+<p>Чтобы продолжить работу на сайте, вам нужно подтвердить ваш email.</p>
+
+<p>Мы отправили вам email с дальнейшей инструкцией. Если вы не получили его в течение нескольких минут, свяжитесь, пожалуйста, с нами</p>
+
+<p><strong>Примечание:</strong> вы еще можете изменить изменить ваш email <a href="{{ email_url }}"></a></p>
+
+
+{% endblock %}

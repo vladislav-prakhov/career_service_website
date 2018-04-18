@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{%  load crispy_forms_tags %}
+{% block content %}
+
+<!-- {% if title%}
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+<h1>Напишите нам</h1>
+</div>
+</div>
+{% endif %}
+ -->
+
+
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+<form action="" method="POST" accept-charset="utf-8">{% csrf_token %}
+<h1>Напишите нам</h1>
+{{ form|crispy }}
+
+<input class="btn btn-default" type="submit" value="Отправить" name="contact">
+
+</form>
+</div>
+</div>
+{% endblock %}

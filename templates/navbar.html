@@ -1,0 +1,68 @@
+{% load staticfiles %}
+
+<!-- Navigation bar -->
+    <nav class="navbar">
+      <div class="container">
+
+        <!-- Logo -->
+        <div class="pull-left">
+          <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+          <div class="logo-wrapper">
+            <a class="logo" href="{% url 'home' %}">
+              <img src="{% static 'img/logo_white_empty_beta.png' %}" 
+                style = "height: 65px; line-height: 65px; padding: 5px; padding-left: 0px;">
+            </a>
+
+            <a class="logo-alt" href="{% url 'home' %}">
+              <img src="{% static 'img/logo_white_empty_beta.png' %}" 
+                style = "height: 65px; line-height: 65px; padding: 5px; padding-left: 0px;">
+            </a>
+          </div>
+
+        </div>
+        <!-- END Logo -->
+
+        <!-- User account -->
+        {% if request.user.is_authenticated %}
+        <div class="pull-right" style="margin-left: 122px;">
+          <div class="dropdown user-account">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <img src="{% static 'img/user.png' %}" alt="avatar">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a href=" {% url 'personal_account' %}">Личный кабинет</a></li>
+              <li><a href="/accounts/logout/">Выйти</a></li>
+            </ul>
+          </div>
+        </div>
+        {% else %}
+        <div class="pull-right user-login" style="margin-left: 40px;">
+          <a class="btn btn-sm btn-success" href="/accounts/login/">Войти</a>
+        </div>
+        
+        {% endif %}
+        
+        
+        <!-- END User account -->
+
+        <!-- Navigation menu -->
+        <ul class="nav-menu">
+          <li>
+            <a href="{% url 'event_articles'%}" >Мероприятия</a>
+          </li>
+          <li>
+            <a href="{% url 'vacancy_articles'%}">Вакансии</a>
+          </li>
+          <li>
+            <a href="{% url 'developing'%}">Материалы</a>
+          </li>
+          <li>
+            <a href="{% url 'why'%}" >Миссия</a>
+          </li>
+        </ul>
+        <!-- END Navigation menu -->
+
+      </div>
+    </nav>
+    <!-- END Navigation bar -->
