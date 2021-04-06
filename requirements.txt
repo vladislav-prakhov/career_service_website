@@ -3,7 +3,7 @@ django-crispy-forms==1.6.0
 Pillow==5.1.0
 django-tinymce==2.7.0
 django-allauth==0.35.0
-django-registration==2.1.2
+django-registration==3.1.2
 certifi==2018.4.16
 chardet==3.0.4
 idna==2.6
